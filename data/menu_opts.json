@@ -1,0 +1,20 @@
+{
+    "nombreApp" : "ProHealth",
+    "rutas" : [
+        {
+            "ruta" : "dates",
+            "icon" : "local_hospital",
+            "texto": "Reserva Citas Médicas"
+        },
+        {
+            "ruta" : "tests",
+            "icon" : "event_note",
+            "texto": "Reserva Examenes de Laboratorio"
+        },
+        {
+            "ruta" : "exit",
+            "icon" : "close",
+            "texto": "Salir"
+        }
+    ]
+}
