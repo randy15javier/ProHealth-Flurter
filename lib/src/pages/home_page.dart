@@ -8,13 +8,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ProHealth'),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.green,
         actions: <Widget>[
           
           Container(
             padding: EdgeInsets.all(5.0),
             child: CircleAvatar(
-              // backgroundImage: NetworkImage('https://img.vixdata.io/pd/jpg-large/es/sites/default/files/r/rip-stan-lee.jpg'),
+              backgroundImage: NetworkImage('https://img.vixdata.io/pd/jpg-large/es/sites/default/files/r/rip-stan-lee.jpg'),
               radius: 25.0,
             ),
           ),
@@ -30,6 +30,38 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: _lista(),
+      drawer: Drawer(
+        child: ListView(
+          // Importante: elimina cualquier padding del ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Actualiza el estado de la aplicación
+                // ...
+                // Luego cierra el drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // // Actualiza el estado de la aplicación
+                // ...
+                // Luego cierra el drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

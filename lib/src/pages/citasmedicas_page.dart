@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart'; 
 import 'package:flutter/src/material/dropdown.dart';
@@ -20,6 +21,8 @@ class _CitasMedicasPageState extends State<CitasMedicasPage> {
   String _optSeleccionada = 'Pediatría';
   
   TextEditingController _inputFieldDateController = new TextEditingController();
+
+  TextEditingController _inputFieldTimeController = new TextEditingController();
   
   String _nombre;
 
@@ -46,6 +49,15 @@ class _CitasMedicasPageState extends State<CitasMedicasPage> {
           Divider(),
           _crearHora(context),
           Divider(),
+          Center(
+            child: RaisedButton(
+              child: Text('Reservar Cita'),
+              color: Colors.lightBlue,
+              textColor: Colors.white,
+              shape: StadiumBorder(),
+              onPressed: ()=> _mostrarAlerta(context),
+            ),
+          )
         ],
       ),
     );
@@ -201,7 +213,7 @@ class _CitasMedicasPageState extends State<CitasMedicasPage> {
 
     return TextField(
       enableInteractiveSelection: false,
-      controller: _inputFieldDateController,
+      controller: _inputFieldTimeController,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0)
@@ -231,13 +243,41 @@ class _CitasMedicasPageState extends State<CitasMedicasPage> {
      if ( picked != null ) {
       setState(() {
           _hora = picked.toString();
-          _inputFieldDateController.text = _hora;
+          _inputFieldTimeController.text = _hora;
       }); 
     }
-
-
   }
 
+  void _mostrarAlerta(BuildContext context) {
+
+    showDialog(
+
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          title: Text("¡Cita Reservada!"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text("Su cita médica ha sido reservada con éxito"),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: ()=> Navigator.of(context).pop(),
+            )
+          ],
+        );
+
+      }
+
+    );
+
+  }
  
 
 }

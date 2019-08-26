@@ -11,11 +11,13 @@ class _ExamenesLabPageState extends State<ExamenesLabPage> {
   
   String _opcionSeleccionada = 'Clinica Profamilia';
   
-  List<String> _especialidades = ['Pediatría', 'Resonancia', 'Radiografía', 'Ultrasonido'];
+  List<String> _especialidades = ['Examen de Sangre', 'Resonancia', 'Radiografía', 'Ultrasonido'];
 
-  String _optSeleccionada = 'Pediatría';
+  String _optSeleccionada = 'Examen de Sangre';
   
   TextEditingController _inputFieldDateController = new TextEditingController();
+
+  TextEditingController _inputFieldTimeController = new TextEditingController();
   
   String _nombre;
 
@@ -42,6 +44,15 @@ class _ExamenesLabPageState extends State<ExamenesLabPage> {
           Divider(),
           _crearHora(context),
           Divider(),
+          Center(
+            child: RaisedButton(
+              child: Text('Reservar Examen'),
+              color: Colors.lightBlue,
+              textColor: Colors.white,
+              shape: StadiumBorder(),
+              onPressed: ()=> _mostrarAlerta(context),
+            ),
+          )
         ],
       ),
     );
@@ -197,7 +208,7 @@ class _ExamenesLabPageState extends State<ExamenesLabPage> {
 
     return TextField(
       enableInteractiveSelection: false,
-      controller: _inputFieldDateController,
+      controller: _inputFieldTimeController,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0)
@@ -227,27 +238,42 @@ class _ExamenesLabPageState extends State<ExamenesLabPage> {
      if ( picked != null ) {
       setState(() {
           _hora = picked.toString();
-          _inputFieldDateController.text = _hora;
+          _inputFieldTimeController.text = _hora;
       }); 
     }
+  }
 
+  void _mostrarAlerta(BuildContext context) {
+
+    showDialog(
+
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          title: Text("¡Examen Reservado!"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text("Su examen de laboratorio ha sido reservada con éxito"),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: ()=> Navigator.of(context).pop(),
+            )
+          ],
+        );
+
+      }
+
+    );
 
   }
 
- 
 
 }
 
-
-// class ExamenesLabPage extends StatelessWidget {
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Examenes de laboratorio'),
-//       ),
-
-//     );
-//   }
-// }
